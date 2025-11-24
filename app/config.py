@@ -7,6 +7,7 @@ from pydantic_settings import BaseSettings
 COMPETITION_TO_SPORT_KEY = {
     "Chile Primera División": "soccer_chile_campeonato",
     "Copa Libertadores": "soccer_conmebol_copa_libertadores",
+    "Copa Sudamericana":"soccer_conmebol_copa_sudamericana",
 }
 
 # Inverso: desde sport_key a nuestro nombre estándar
@@ -29,9 +30,20 @@ class Settings(BaseSettings):
     # The Odds API
     THE_ODDS_API_KEY: Optional[str] = None
     THE_ODDS_API_BASE: str = "https://api.the-odds-api.com/v4/sports"
+    
+    # Whitelist de casas que queremos mostrar en SuperBet
+    ALLOWED_BOOKMAKERS: List[str] = [
+        "betsson",
+        "coolbet",
+        "jugabet",
+        "estelarbet",
+        "1win",
+    ]
 
     # Competencias que nos interesan por defecto
     DEFAULT_COMPETITIONS: List[str] = list(COMPETITION_TO_SPORT_KEY.keys())
+    
+    
 
     class Config:
         env_file = ".env"

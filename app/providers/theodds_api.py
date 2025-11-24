@@ -94,8 +94,14 @@ def fetch_odds_from_theodds(
 
                 for bm in ev.get("bookmakers", []):
                     bm_key = bm.get("key")
+
+                    # 1) si viene ?bookmaker= en la query, respetamos eso
                     if bookmaker and bm_key != bookmaker:
-                        continue
+                     continue
+
+                   # 2) si NO viene filtro en la query, usamos la whitelist global
+                    if not bookmaker and bm_key not in settings.ALLOWED_BOOKMAKERS:
+                     continue
 
                     last_updated = bm.get("last_update")
 
